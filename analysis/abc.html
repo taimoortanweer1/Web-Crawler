@@ -1,0 +1,51 @@
+<html>
+  <head>
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript">
+    
+    // Load the Visualization API and the piechart package.
+    google.load('visualization', '1', {'packages':['corechart']});
+      
+    // Set a callback to run when the Google Visualization API is loaded.
+    google.setOnLoadCallback(drawChart);
+      
+    function drawChart() {
+      var jsonData = $.ajax({
+          url: "analyze.php",
+          dataType:"json",
+          async: false
+          }).responseText;
+   // alert(jsonData);
+	    var j=JSON.parse(jsonData);
+	//alert(j);
+	
+      // Create our data table out of JSON data loaded from server.
+      var data = new google.visualization.DataTable({
+  "cols": [
+        {"id":"","label":"Topping","pattern":"","type":"string"},
+        {"id":"","label":"Slices","pattern":"","type":"number"}
+      ],
+  "rows": [
+        {"c":[{"v":"Positive","f":null},{"v":j[0],"f":null}]},
+        {"c":[{"v":"Negative","f":null},{"v":j[1],"f":null}]},
+        {"c":[{"v":"Neutral","f":null},{"v":j[2],"f":null}]},
+        
+      ]
+});
+
+      // Instantiate and draw our chart, passing in some options.
+      var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+      chart.draw(data, { is3D: true, title: 'Sentiment Analysis of so far seen URLs', width: 400, height: 240, backgroundColor: "#fffde4", color: ['blue', 'red', 'green']});
+    }
+
+    </script>
+  </head>
+
+  <body" >
+    <!--Div that will hold the pie chart-->
+    <div id="chart_div"></div>
+  </body>
+</html>
+

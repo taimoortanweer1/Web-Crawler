@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Untitled Document</title>
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+    <script>
+    $( document ).ready(function() {
+	 $("#ab").css("visibility", "visible");
+
+      $.ajax({
+        type:"POST",
+        url: "crawll.php",
+      // data: "v="+value+ "&n="+$( "#numb1 option:selected" ).val(),
+		
+        success: function(response){
+
+			  //alert(response);
+			
+			
+	
+$("#we").append(response);
+			 
+$("#we").append('<br/> Analyzing Crawled Links');
+			 
+			  
+  $.ajax({
+        type:"POST",
+        url: "updates.php",
+       
+		
+        success: function(response){
+
+			$("#dvd1").html('<br/>Crawled Links are analyzed');}
+
+    });
+	
+			 }
+    });  
+		$("#dvd").html('');
+
+	
+    });
+	</script>
+</head>
+
+<body style="margin:0px; padding:0px; background: url(../html/images/bodyBg.jpg) #fffde4 repeat-x">
+
+<h2>Initialized Crawling </h2>
+
+<button id="stop" value="button" >Stop</button>
+<h2>&nbsp;</h2>
+  Crawling <span id="dvd"></span>
+<div id="we"></div>
+<div id="dvd1"></div>
+<form method="post">
+<input type="button" value="Close Window" id="ab" 
+onclick="window.close()" style="visibility:hidden"></form>
+</body>
+</html>
